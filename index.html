@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>
+            RISBAM | Remaja Islam Baitul Muhajirin
+        </title>
+
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="bootstrap.min.css">
+    </head>
+    <body>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" id="myTab3" role="tablist">
+            <li class="nav-item">
+            <a class="nav-link active" id="risbam-tab" data-toggle="tab" href="#risbam" role="tab" aria-controls="risbam" aria-selected="true">RISBAM</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="program-tab" data-toggle="tab" href="#program" role="tab" aria-controls="program" aria-selected="false">Program</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" id="aboutus-tab" data-toggle="tab" href="#aboutus" role="tab" aria-controls="aboutus" aria-selected="false">About Us</a>
+            </li>
+        </ul>
+        <!-- Body -->
+        <div id="divBody" style="background-color:beige">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!--  -->
+                <div class="tab-pane active" id="risbam" role="tabpanel" aria-labelledby="risbam-tab">
+                    <h1>RISBAM</h1>
+                </div>
+                <!--  -->
+                <div class="tab-pane" id="program" role="tabpanel" aria-labelledby="program-tab">
+                    <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-sm-2" style="background-color:aliceblue">
+                                    <ul class="nav nav-tabs nav-pills flex-column" role="tablist" aria-orientation="vertical">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="turki-tab" data-toggle="tab" href="#turki" role="tab" aria-controls="turki" aria-selected="true">TURKI</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="mekah-tab" data-toggle="tab" href="#mekah" role="tab" aria-controls="mekah" aria-selected="false">MEKAH</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="madinah-tab" data-toggle="tab" href="#madinah" role="tab" aria-controls="madinah" aria-selected="false">MADINAH</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-10" style="background-color:beige">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="turki" role="tabpanel" aria-labelledby="turki-tab">
+                                            <h2>TURKI</h2>
+                                            <h3>Overview</h3>
+                                            <p>TURKI merupakan ...</p>
+                                            <h3>Laporan</h3>
+                                        </div>
+                                        <div class="tab-pane" id="mekah" role="tabpanel" aria-labelledby="mekah-tab">
+                                            <h2><strong>MEKAH</strong></h2>
+                                            <h3><em>Overview</em></h3>
+                                            <p style="text-indent:50px;"><b>MEKAH</b> merupakan program <b>"ME</b>mberi<b>K</b>an sedek<b>AH"</b> bagi anak-anak yatim di Kelurahan Pondok Kelapa, khususnya lingkungan RW 09 dan sekitarnya.
+                                            Setiap bulan, akan ada santunan berupa uang masing-masing sebesar <b id="santunanMekah"><!-- value dari mekah.js --></b>. 
+                                            Setiap minggunya, akan ada pembinaan bagi mereka yang berumur > 3 tahun untuk diajarkan berbagai macam pelajaran seperti akhlak, kebersihan, doa-doa pendek, surat-surat pendek, dan lainnya.
+                                            Selesai pembinaan, diakhiri dengan makan bersama.</p>
+                                            <p style="text-indent:50px;">Jika dalam proses pembinaan ditemukan adanya minat belajar yang kuat, maka mereka akan diusahakan untuk disalurkan ke pendidikan formal seperti pesantren.
+                                            Dengan demikian, diharapkan mereka akan menjadi anak-anak yang sholih dan sholihah yang kelak dapat berguna bagi keluarga, masyarakat, agama, dan negara.</p>
+                                            <hr>
+
+                                            <h3>Tujuan</h3>
+                                            <p style="text-indent:50px;">Memuliakan dan menyayangi anak yatim dengan memberikan santunan, pendidikan, serta menyekolahkan bagi mereka yang belum bersekolah di Kelurahan Pondok Kelapa, khususnya anak yatim di lingkungan RW 09 dan sekitarnya.</p>
+                                            <hr>
+                                            <h3>Landasan</h3>
+                                            <h5>Al-Qur'an Surah ...</h5>
+                                            <h5>Hadist Riwayat ...</h5>
+                                            <hr>
+
+                                            <h3>Daftar Penerima Program MEKAH</h3>
+                                            <p style="text-indent:50px;">Program ini sudah berjalan kurang lebih <b id="mekahBerjalanKurangLebih"><!-- value dari mekah.js --></b> dari bulan <b id="mekahBerjalanDariBulan"><!-- value dari mekah.js --></b>.
+                                                Alhamdulillah, sampai dengan bulan <b id="mekahSampaiDenganBulan"><!-- value dari mekah.js --></b> ini, penerima sudah berjumlah <b id="totalPPMekah"><!-- value dari mekah.js --></b> anak yatim.</p>
+                                            <table id="tblPPMekah" class="table table-light table-striped">
+                                                <thead class="thead-dark">
+                                                    <!-- list kolom dari mekah.js saat document ready -->
+                                                </thead>
+                                                <tbody>
+                                                    <!-- list data dari mekah.js saat document ready -->
+                                                </tbody>
+                                            </table>
+                                            <hr>
+                                            <h3>Daftar Donatur</h3>
+                                            <hr>
+                                            <h3>Sistem Terpadu</h3>
+                                            <h4>Team 1 (Hunter Division)</h4>
+                                            <h4>Team 2 (... Division)</h4>
+                                            <h4>Team 3 (... Division)</h4>
+                                            <hr>
+                                            <h3>Laporan</h3>
+                                            <h4>Penerimaan</h4>
+                                            <p>Filter : Yearly, Monthly, Spesific</p>
+                                            <div>
+                                                <div>
+                                                    <table id="tblPPMekah" class="table table-light table-striped">
+                                                        <thead class="thead-dark">
+                                                            <tr>
+                                                                <th>Tahun</th>
+                                                                <th>Total Nominal</th>
+                                                                <th></th>
+                                                            </th>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>2017</td>
+                                                                <td>Rp. 1923947239</td>
+                                                                <td><h5><input type="button" class="btn btn-primary" value="Lihat Detil 2017" data-toggle="collapse" href="#laporanmekah2017" role="button" aria-expanded="false" aria-controls="laporanmekah2017"> </h5></td>
+                                                            </tr>
+                                                            <!-- list data dari mekah.js saat document ready -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div>
+                                                    <div>
+                                                            <div id="laporanmekah2017" class="collapse">
+                                                                    <div>
+                                                                        <table style="padding-left:50px" id="tblPPMekahApril2017" class="table table-light table-striped">
+                                                                            <thead class="thead-dark">
+                                                                                <tr>
+                                                                                    <th>Bulan</th>
+                                                                                    <th>Total Nominal</th>
+                                                                                    <th></th>
+                                                                                </th>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>April</td>
+                                                                                    <td>Rp. 1923947239</td>
+                                                                                    <td><h5><input type="button" class="btn btn-primary" value="Lihat Detil April" data-toggle="collapse" href="#laporanmekahapril2017" role="button" aria-expanded="false" aria-controls="laporanmekahapril2017"> </h5></td>
+                                                                                </tr>
+                                                                                <!-- list data dari mekah.js saat document ready -->
+                                                                            </tbody>
+                                                                        </table>
+                    
+                                                                        <div id="laporanmekahapril2017" class="collapse">
+                                                                            <div>
+                                                                                <table id="tblPPMekahApril2017Details" class="table table-light table-striped">
+                                                                                    <thead class="thead-dark">
+                                                                                        <tr>
+                                                                                            <th>Tanggal</th>
+                                                                                            <th>Nama Donatur</th>
+                                                                                            <th>Bulan</th>
+                                                                                            <th>Nominal</th>
+                                                                                        </th>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        <tr>
+                                                                                            <td>14-04-2017</td>
+                                                                                            <td>Marina</td>
+                                                                                            <td>Juli</td>
+                                                                                            <td>Rp. 192399</td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>13-04-2017</td>
+                                                                                            <td>Hj. Hetty</td>
+                                                                                            <td>Juli</td>
+                                                                                            <td>Rp. 192399</td>
+                                                                                            
+                                                                                        </tr>
+                                                                                        <!-- list data dari mekah.js saat document ready -->
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                    </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="madinah" role="tabpanel" aria-labelledby="madinah-tab">
+                                            <h2>MADINAH</h2>
+                                            <h3>Overview</h3>
+                                            <p>MADINAH merupakan ...</p>
+                                            <h3>Daftar Penerima Program MADINAH</h3>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>No</td>
+                                                        <td>Nama</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Panji</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <h3>Laporan</h3>
+                                            <h2>Penerimaan</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <!--  -->
+                <div class="tab-pane" id="aboutus" role="tabpanel" aria-labelledby="aboutus-tab">
+                    <h1>About Us</h1>
+                    <h2>Visi</h2>
+                    <h2>Misi</h2>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <hr>
+        <!-- Footer -->
+        <div id="divFooter">
+            <address>
+                <strong>RISBAM. </strong> <a href="https://goo.gl/maps/aQ6sgmJMDys" target="_blank"><i>Jl.Lembah Pinang XI, Blok I RT.008 RW.009, Pondok Kelapa, Jakarta Timur. 13450</i></a> 
+                <br>
+                Mail : assalamu'alaikum@risbam.org
+                <br>
+                &#169 Copyright 2018, RISBAM (Remaja Islam Baitul Muhajirin)
+            </address>
+            
+        </div>
+        
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  -->
+    
+    
+    <script type="text/javascript" src="jquery-slim.min.js"></script>
+    <script type="text/javascript" src="popper.min.js"></script>
+    <script type="text/javascript" src="bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="commons.js"></script>
+    <script type="text/javascript" src="mekah.js"></script>
+    
+    </body>
+</html>
