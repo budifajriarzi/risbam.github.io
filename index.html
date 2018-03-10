@@ -11,6 +11,7 @@
 
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
         <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="commons.css">
     </head>
     <body>
         <!-- Nav tabs -->
@@ -61,26 +62,30 @@
                                         <div class="tab-pane active" id="mekah" role="tabpanel" aria-labelledby="mekah-tab">
                                             <h2><strong>MEKAH</strong></h2>
                                             <h3><em>Overview</em></h3>
-                                            <p style="text-indent:50px;"><b>MEKAH</b> merupakan program <b>"ME</b>mberi<b>K</b>an sedek<b>AH"</b> bagi anak-anak yatim di Kelurahan Pondok Kelapa, khususnya lingkungan RW 09 dan sekitarnya.
+                                            <p><b>MEKAH</b> merupakan program <b>"ME</b>mberikan sede<b>KAH"</b> bagi anak-anak yatim di Kelurahan Pondok Kelapa, khususnya lingkungan RW 09 dan sekitarnya.
                                             Setiap bulan, akan ada santunan berupa uang masing-masing sebesar <b id="santunanMekah"><!-- value dari mekah.js --></b>. 
-                                            Setiap minggunya, akan ada pembinaan bagi mereka yang berumur > 3 tahun untuk diajarkan berbagai macam pelajaran seperti akhlak, kebersihan, doa-doa pendek, surat-surat pendek, dan lainnya.
+                                            Setiap minggunya, akan ada pembinaan bagi mereka yang berumur lebih dari 3 tahun untuk diajarkan berbagai macam pelajaran seperti akhlak, kebersihan, doa-doa pendek, surat-surat pendek, dan lainnya.
                                             Selesai pembinaan, diakhiri dengan makan bersama.</p>
-                                            <p style="text-indent:50px;">Jika dalam proses pembinaan ditemukan adanya minat belajar yang kuat, maka mereka akan diusahakan untuk disalurkan ke pendidikan formal seperti pesantren.
+                                            <p>Jika dalam proses pembinaan ditemukan adanya minat belajar yang kuat, maka mereka akan diusahakan untuk disalurkan ke pendidikan formal seperti pesantren.
                                             Dengan demikian, diharapkan mereka akan menjadi anak-anak yang sholih dan sholihah yang kelak dapat berguna bagi keluarga, masyarakat, agama, dan negara.</p>
                                             <hr>
 
                                             <h3>Tujuan</h3>
-                                            <p style="text-indent:50px;">Memuliakan dan menyayangi anak yatim dengan memberikan santunan, pendidikan, serta menyekolahkan bagi mereka yang belum bersekolah di Kelurahan Pondok Kelapa, khususnya anak yatim di lingkungan RW 09 dan sekitarnya.</p>
+                                            <p>Memuliakan dan menyayangi anak yatim dengan memberikan santunan, pendidikan, serta menyekolahkan bagi mereka yang belum bersekolah di Kelurahan Pondok Kelapa, khususnya anak yatim di lingkungan RW 09 dan sekitarnya.</p>
                                             <hr>
                                             <h3>Landasan</h3>
-                                            <h5>Al-Qur'an Surah ...</h5>
-                                            <h5>Hadist Riwayat ...</h5>
+                                            <p>
+                                                Al-Mujadilah (58) : 12 yang berbunyi <q>Wahai orang-orang yang beriman! Apabila kamu mengadakan pembicaraan khusus dengan Rasul, 
+                                                hendaklah kamu mengeluarkan sedekah (kepada orang miskin) sebelum (melakukan) pembicaraan itu. 
+                                                Yang demikian itu lebih baik bagimu dan lebih bersih. Tetapi jika kamu tidak memperoleh (yang akan disedekahkan) maka sungguh, 
+                                                Allah Maha Pengampun, Maha Penyayang.</q>
+                                            </p>
                                             <hr>
 
                                             <h3>Daftar Penerima Program MEKAH</h3>
-                                            <p style="text-indent:50px;">Program ini sudah berjalan kurang lebih <b id="mekahBerjalanKurangLebih"><!-- value dari mekah.js --></b> dari bulan <b id="mekahBerjalanDariBulan"><!-- value dari mekah.js --></b>.
+                                            <p>Program ini sudah berjalan kurang lebih <b id="mekahBerjalanKurangLebih"><!-- value dari mekah.js --></b> dari bulan <b id="mekahBerjalanDariBulan"><!-- value dari mekah.js --></b>.
                                                 Alhamdulillah, sampai dengan bulan <b id="mekahSampaiDenganBulan"><!-- value dari mekah.js --></b> ini, penerima sudah berjumlah <b id="totalPPMekah"><!-- value dari mekah.js --></b> anak yatim.</p>
-                                            <table id="tblPPMekah" class="table table-light table-striped">
+                                            <table id="tblPPMekah" class="table table-light table-striped table-sm">
                                                 <thead class="thead-dark">
                                                     <!-- list kolom dari mekah.js saat document ready -->
                                                 </thead>
@@ -90,18 +95,33 @@
                                             </table>
                                             <hr>
                                             <h3>Daftar Donatur</h3>
-                                            <hr>
+                                            <table id="tblDaftarDonatur" class="table table-light table-striped table-sm">
+                                                <thead class="thead-dark">
+                                                    <!-- list kolom dari mekah.js saat document ready -->
+                                                </thead>
+                                                <tbody>
+                                                    <!-- list data dari mekah.js saat document ready -->
+                                                </tbody>
+                                            </table>
+                                            <!-- <hr>
                                             <h3>Sistem Terpadu</h3>
                                             <h4>Team 1 (Hunter Division)</h4>
                                             <h4>Team 2 (... Division)</h4>
-                                            <h4>Team 3 (... Division)</h4>
+                                            <h4>Team 3 (... Division)</h4> -->
                                             <hr>
-                                            <h3>Laporan</h3>
-                                            <h4>Penerimaan</h4>
-                                            <p>Filter : Yearly, Monthly, Spesific</p>
-                                            <div>
+                                            <h3>Laporan Penerimaan</h3>
+                                            <table id="tblLaporanPenerimaan" class="table table-light table-striped table-sm">
+                                                <thead class="thead-dark">
+                                                    
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+
+                                            <!-- <div>
                                                 <div>
-                                                    <table id="tblPPMekah" class="table table-light table-striped">
+                                                    <table id="tblPPMekah" class="table table-light table-striped table-sm">
                                                         <thead class="thead-dark">
                                                             <tr>
                                                                 <th>Tahun</th>
@@ -115,7 +135,6 @@
                                                                 <td>Rp. 1923947239</td>
                                                                 <td><h5><input type="button" class="btn btn-primary" value="Lihat Detil 2017" data-toggle="collapse" href="#laporanmekah2017" role="button" aria-expanded="false" aria-controls="laporanmekah2017"> </h5></td>
                                                             </tr>
-                                                            <!-- list data dari mekah.js saat document ready -->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -137,7 +156,6 @@
                                                                                     <td>Rp. 1923947239</td>
                                                                                     <td><h5><input type="button" class="btn btn-primary" value="Lihat Detil April" data-toggle="collapse" href="#laporanmekahapril2017" role="button" aria-expanded="false" aria-controls="laporanmekahapril2017"> </h5></td>
                                                                                 </tr>
-                                                                                <!-- list data dari mekah.js saat document ready -->
                                                                             </tbody>
                                                                         </table>
                     
@@ -148,25 +166,21 @@
                                                                                         <tr>
                                                                                             <th>Tanggal</th>
                                                                                             <th>Nama Donatur</th>
-                                                                                            <th>Bulan</th>
                                                                                             <th>Nominal</th>
                                                                                         </th>
                                                                                     </thead>
                                                                                     <tbody>
                                                                                         <tr>
-                                                                                            <td>14-04-2017</td>
+                                                                                            <td style="font-size:2vw;">14-04-2017</td>
                                                                                             <td>Marina</td>
-                                                                                            <td>Juli</td>
                                                                                             <td>Rp. 192399</td>
                                                                                         </tr>
                                                                                         <tr>
                                                                                             <td>13-04-2017</td>
                                                                                             <td>Hj. Hetty</td>
-                                                                                            <td>Juli</td>
                                                                                             <td>Rp. 192399</td>
                                                                                             
                                                                                         </tr>
-                                                                                        <!-- list data dari mekah.js saat document ready -->
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
@@ -177,7 +191,7 @@
                                                         
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                         <div class="tab-pane" id="madinah" role="tabpanel" aria-labelledby="madinah-tab">
                                             <h2>MADINAH</h2>
@@ -221,7 +235,7 @@
             <address>
                 <strong>RISBAM. </strong> <a href="https://goo.gl/maps/aQ6sgmJMDys" target="_blank"><i>Jl.Lembah Pinang XI, Blok I RT.008 RW.009, Pondok Kelapa, Jakarta Timur. 13450</i></a> 
                 <br>
-                Mail : assalamu'alaikum@risbam.org
+                Mail : assalamualaikum@risbam.org
                 <br>
                 &#169 Copyright 2018, RISBAM (Remaja Islam Baitul Muhajirin)
             </address>

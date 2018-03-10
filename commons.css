@@ -1,0 +1,21 @@
+p {
+    text-indent:30px;
+    text-align:justify;
+}
+
+/* https://stackoverflow.com/questions/15649244/responsive-font-size */
+@media screen and (max-width:767px) {
+    /* body {
+        background-color:blue;
+    } */
+
+    h3 {
+        font-size:3.45vw;
+    }
+    table thead tr th {
+        font-size:2vw;
+    }
+    table tbody tr td {
+        font-size:2vw;
+    }
+}
