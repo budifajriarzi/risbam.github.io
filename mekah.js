@@ -163,3 +163,25 @@ $(document).ready(function(){
         $(tbl).find('tbody').append(("<tr> <td> {0} </td> <td> {1} </td> <td> {2} </td> <td> {3} </td> </tr>").format([(idx+1), val[0], val[1], convertToRupiah(val[2])]));
     });
 });
+
+function Share(){
+	 var whatsAppAPILink = "https://api.whatsapp.com/send?text=Daftar%20Donatur%0A";
+	 whatsAppAPILink += "-----------";
+	 $.each(listDonatur, function(idx, val){
+        whatsAppAPILink += val + "%0A";
+    });
+	 window.location.href = whatsAppAPILink;
+	// alert('a');
+	// $.get("https://api.whatsapp.com/send?text=Daftar%20Donatur", function(data){
+	// 	alert('b');
+	// });
+	// var xhr = new XMLHttpRequest();
+	// // xhr.open("GET", "https://api.whatsapp.com/send?text=Daftar%20Donatur", true);
+	// xhr.open("GET", "www.facebook.com", true);
+	// xhr.setRequestHeader('Access-Control-Allow-Headers', '*');
+	// xhr.send();
+	// alert(xhr.responseText);
+	// // $.get("www.facebook.com", function(data){
+	// // 	alert('b');
+	// // });
+}
