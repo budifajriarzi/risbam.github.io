@@ -9,14 +9,23 @@ p {
         background-color:blue;
     } */
 
-    h2 {
+    /* h2 {
         font-size:4.2vw;
     }
     h3 {
-        font-size:3.65vw;
+        font-size:3.5vw;
     }
     p {
         font-size:2vw;
+    }  */
+    h2 {
+        font-size:28px;
+    }
+    h3 {
+        font-size:26px;
+    }
+    p {
+        font-size:12px;
     }
     table thead tr th {
         font-size:2vw;
