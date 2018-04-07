@@ -1,16 +1,29 @@
-var listPenerima =["Dimas Adi Prasetyo", 
-                    "Thahir Kusuma Setyo",
-                    "Tyas",
-                    "Panji",
-                    "Gita",
-                    "Aldino Saurus",
-                    "M. Alpin Saputra",
-                    "Puspita Arif Rama",
-                    "Devi Yuniarti",
-                    "Deva Yunita",
-                    "Bilal",
-                    "Fahrul",
-                    "Adiknya Fahrul, Cucu Pak Jasmin"
+var listPenerima =[["Dimas Adi Prasetyo", "Yatim"], 
+                    ["Thahir Kusuma Setyo", "Yatim"],
+                    ["Tyas", "Yatim"],
+                    ["Panji", "Yatim"],
+                    ["Gita", "Yatim"],
+                    ["Aldino Saurus", "Yatim"],
+                    ["M. Alpin Saputra", "Yatim"],
+                    ["Puspita Arif Rama", "Yatim"],
+                    ["Devi Yuniarti", "Yatim"],
+                    ["Deva Yunita", "Yatim"],
+                    ["Bilal", "Yatim"],
+                    ["Fahrul", "Yatim"],
+					["Firji", "Yatim"],
+					["Muhammad Sinaga", "Yatim"],
+					["Yusuf Sinaga", "Yatim"],
+					["Yaqub Sinaga", "Yatim"],
+					["Kartinah", "Yatim"],
+					["Nurlela", "Yatim"],
+					["Hartini", "Yatim"],
+					["Prihandi", "Yatim"],
+					["Diki", "Yatim"],
+					["Kirana", "Yatim"],
+					["Bp. Susilo", "Dhuafa"],
+					["Bp. Sumardi", "Dhuafa"],
+					["Bp. Nur Ahsin", "Dhuafa"],
+					["Bp. Hari Santoso", "Dhuafa"]
                 ];
 
 var listDonatur =[
@@ -127,20 +140,19 @@ $(document).ready(function(){
     var santunanMekah = $('#santunanMekah');
     var totalPPMekah = $('#totalPPMekah');
     
-
-    mekahBerjalanKurangLebih.text("4 Bulan");
+    mekahBerjalanKurangLebih.text("6 Bulan");
     mekahBerjalanDariBulan.text("Oktober 2017");
-    mekahSampaiDenganBulan.text("Februari 2018");
+    mekahSampaiDenganBulan.text("April 2018");
     santunanMekah.text("Rp.100.000");
     totalPPMekah.text(listPenerima.length);
 
     // Insert Data Penerima Program Mekah
     var tbl = $('#tblPPMekah');
     // populating column title
-    $(tbl).find('thead').append(("<tr> <th> {0} </th> <th> {1} </th> </tr>").format(["No", "Nama"]));
+    $(tbl).find('thead').append(("<tr> <th> {0} </th> <th> {1} </th> <th> {2} </th> </tr>").format(["No", "Nama", "Keterangan"]));
     // populating list
     $.each(listPenerima, function(idx, val){
-        $(tbl).find('tbody').append(("<tr> <td> {0} </td> <td> {1} </td> </tr>").format([(idx+1), val]));
+        $(tbl).find('tbody').append(("<tr> <td> {0} </td> <td> {1} </td> <td> {2} </td> </tr>").format([(idx+1), val[0], val[1]]));
     });
     
 
