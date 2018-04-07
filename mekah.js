@@ -165,7 +165,7 @@ $(document).ready(function(){
 });
 
 function Share(){
-	 var whatsAppAPILink = "https://api.whatsapp.com/send?text=Daftar%20Donatur%20Program%20MEKAH%20(" + listDonatur.length + ")%20:%0A%0A";
+	 var whatsAppAPILink = "https://api.whatsapp.com/send?text=Daftar%20Donatur%20Program%20MEKAH%20(" + listDonatur.length + ")%20:%0A%";
 	 $.each(listDonatur, function(idx, val){
         whatsAppAPILink += "%0A" + (idx+1) + "." + "%20" + val;
     });
