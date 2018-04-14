@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <title>
+            Dashboard RISBAM
+        </title>
+
+        <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="jquery-slim.min.js"></script>
+        <script type="text/javascript" src="popper.min.js"></script>
+        <script type="text/javascript" src="bootstrap.min.js"></script>
+    
+        <script type="text/javascript" src="commons.js"></script>
+        <script type="text/javascript" src="mekah.js"></script>
+
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="bootstrap.min.css">
+        <link rel="stylesheet" href="commons.css">
+        <script>
+            function btnExpand(obj, txtShow, txtHide){
+                // // alert($(obj).html().trim());
+                var expanded = $(obj).attr('aria-expanded');
+                if(expanded == 'false'){
+                    $(obj).html(txtHide);
+                    $(obj).removeClass('btn-primary');
+                    $(obj).addClass('btn-secondary');
+					$('#titlePenerima').html('Tambah Penerima');
+                } else {
+                    $(obj).html(txtShow);
+                    $(obj).removeClass('btn-secondary');
+                    $(obj).addClass('btn-primary');
+                }
+
+                // $(obj).on('shown.bs.collapse', function () {
+                //     $(obj).html(txtShow);
+                //     $(obj).removeClass('btn-secondary');
+                //     $(obj).addClass('btn-primary');
+                // })
+
+                // $(obj).on('hidden.bs.collapse', function () {
+                //     $(obj).html(txtShow);
+                //     $(obj).removeClass('btn-secondary');
+                //     $(obj).addClass('btn-primary');
+                // })
+            };
+            function tambahPenerima(){
+				// untuk kirim ke server
+				var f = $('#formPenerima').serialize();
+				// $.post('tambahPenerima', function(){ 
+					// do things here...
+				//});
+				
+				
+				// untuk kirim ke client
+				var nama = $('#txtNama').val();
+				var jenisKelamin = f.split('&')[1].split('=')[1];
+				var tempatLahir = $('#txtTempatLahir').val();
+				var tanggalLahir = f.split('&')[3].split('=')[1];
+				var alamat = $('#txtAlamat').val();
+				var keterangan = f.split('&')[5].split('=')[1];
+				
+                var tbl = $('#tablePenerima');
+                 
+				 //// tambah penerima
+                $(tbl).find('tbody').append(("<tr class='alert alert-dismissible fade show'> <td> {0} </td> " +
+                                                "<td> {1} </td>" +
+                                                "<td> {2} </td>" +
+                                                "<td> {3} </td>" +
+                                                "<td> {4} </td>" +
+                                                "<td> {5} </td>" +
+                                                "<td> {6} </td>" +
+                                                "<td> {7} </td>" +
+                                                "</tr>" +
+                                                "").format(['<input type="button" value="Hapus" data-dismiss="alert" class="btn btn-danger" onclick="hapusPenerima(this)"/>' + ' ' + '<input type="button" value="Lihat Detail" class="btn btn-primary" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="collapseExample" onclick="detailPenerima(this)"/>',
+                                                1, 
+                                                nama,
+                                                jenisKelamin,
+                                                tempatLahir,
+                                                tanggalLahir, 
+                                                alamat,
+                                                keterangan]));
+            }
+			function detailPenerima(obj){
+				var nama = $(obj).parents('tr').find('td').eq(2).html();
+				var tempatLahir = $(obj).parents('tr').find('td').eq(4).html();
+				var alamat = $(obj).parents('tr').find('td').eq(6).html();
+				
+				$('#txtNama').val(nama);
+				$('#txtTempatLahir').val(tempatLahir);
+				$('#txtAlamat').val(alamat);
+				
+				
+				
+				btnExpand(btnTambahPenerima, "Tambah Penerima", "Tutup");
+				$('#titlePenerima').html('Detail Penerima');
+				
+				
+			}
+            function hapusPenerima(obj){
+                //var trs = $(obj).parents('tr').eq(0);
+                //trs.remove();
+				alert('deleted on server');
+            };
+			
+			function previewLaporan(){
+				var laporanSelected = $('#ddlLaporan').val();
+			
+                if(laporanSelected == "LaporanKeuangan"){
+					PreviewLaporan_PemasukanPengeluaran();
+				} else if(laporanSelected == "StatusPembayaranDonatur"){
+					PreviewLaporan_StatusPembayaran();
+				} else {
+					alert('Mohon pilih laporan terlebih dahulu');
+				}
+											
+			};
+			
+			function PreviewLaporan_StatusPembayaran(){
+				var tbl = $('#tableLaporan');
+                
+				$(tbl).find('thead').find('tr').html('');
+				$(tbl).find('tbody').find('tr').html('');
+				$(tbl).find('tfoot').find('tr').html('');
+				
+				//// tambah title
+				$(tbl).find('thead').append(("<tr> <th style='border:1px solid black; text-align:center;'> {0} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {1} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {2} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {3} </th> " + 
+											"<th style='border:1px solid black; text-align:center;'> {4} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {5} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {6} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {7} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {8} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {9} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {10} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {11} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {12} </th> " +
+											"<th style='border:1px solid black; text-align:center;'> {13} </th> " +
+											"</tr>")
+											.format(["No", 
+											"Nama Donatur", 
+											"Januari", 
+											"Februari", 
+											"Maret",
+											"April",
+											"Mei",
+											"Juni",
+											"Juli",
+											"Agustus",
+											"September",
+											"Oktober",
+											"November",
+											"Desember",
+											]));
+				 
+				//// tambah row
+				// Saldo Awal
+				//$(tbl).find('tbody').find('tr').html('');
+                //$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                //                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format([1, 
+                //                                '',
+                //                                'Saldo Per-3 Februari 2018',
+                //                                convertToRupiah(2233600), 
+                //                                '']));
+				//								
+				//// Pemasukan Bulan <param bulan>
+				//$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                //                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format([2, 
+                //                                '',
+                //                                'Pemasukan bulan Februari 2018 (dari 14 donatur)',
+                //                                convertToRupiah(2050000), 
+                //                                '']));
+				//
+				//// Pengeluaran
+				//$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                //                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format([3, 
+                //                                '03-03-2018',
+                //                                'Pemberian santunan kepada 16 orang yatim @Rp.100.000',
+                //                                '', 
+                //                                convertToRupiah(1600000)]));
+				//								
+				//$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                //                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format([4, 
+                //                                '03-03-2018',
+                //                                'Pemberian santunan kepada 4 orang dhuafa @Rp.50.000',
+                //                                '', 
+                //                                convertToRupiah(200000)]));
+				//
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:left;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {5} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {6} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {7} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {8} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {9} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {10} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {11} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {12} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {13} </td>" +
+                                                "</tr>" +
+                                                "").format([1, 
+                                                'Bunda Ayu',
+                                                convertToRupiah(50000),
+                                                convertToRupiah(50000), 
+												convertToRupiah(50000),
+												'',
+												'',
+												'',
+												'',
+												'',
+												'',
+												'',
+												'',
+												'',
+												]));
+												
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:left;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {5} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {6} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {7} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {8} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {9} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {10} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {11} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {12} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {13} </td>" +
+                                                "</tr>" +
+                                                "").format([2, 
+                                                'Bunda Yunita',
+                                                convertToRupiah(25000),
+                                                convertToRupiah(25000), 
+												convertToRupiah(25000),
+												convertToRupiah(25000),
+												convertToRupiah(25000),
+												convertToRupiah(25000),
+												'',
+												'',
+												'',
+												'',
+												'',
+												'',
+												]));
+						
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:left;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {5} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {6} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {7} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {8} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {9} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {10} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {11} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {12} </td>" +
+												"<td style='border-right:1px solid black; text-align:right;'> {13} </td>" +
+                                                "</tr>" +
+                                                "").format([3, 
+                                                'Bunda Rara',
+                                                convertToRupiah(30000),
+                                                convertToRupiah(30000), 
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												convertToRupiah(30000),
+												]));
+												
+				////// Insert Foot
+				//$(tbl).find('tfoot').find('tr').html('');
+				//$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                //                                "<td style='border-top:1px solid black; border-bottom:1px solid black;'> {1} </td>" +
+                //                                "<td style='border-top:1px solid black; border-right:1px solid black; border-bottom:1px solid black; text-align:right;'> {2} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format(['', 
+                //                                '',
+                //                                'JUMLAH',
+                //                                convertToRupiah(4283600), 
+                //                                convertToRupiah(1950000)]));
+				//								
+				//$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                //                                "<td style='border-bottom:1px solid black;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black; border-bottom:1px solid black; text-align:right;'> {2} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format(['', 
+                //                                '',
+                //                                'SALDO',
+                //                                '', 
+                //                                convertToRupiah(2330600)]));
+				//								
+				//$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                //                                "<td style='border-bottom:1px solid black;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black; border-bottom:1px solid black; text-align:right;'> {2} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format(['', 
+                //                                '',
+                //                                'JUMLAH',
+                //                                convertToRupiah(4283600), 
+                //                                convertToRupiah(1950000)]));
+			}
+			
+			function PreviewLaporan_PemasukanPengeluaran(){
+				var tbl = $('#tableLaporan');
+                
+				$(tbl).find('thead').find('tr').html('');
+				$(tbl).find('tbody').find('tr').html('');
+				$(tbl).find('tfoot').find('tr').html('');
+				
+				//// tambah title				
+				$(tbl).find('thead').append(("<tr> <th style='border:1px solid black; text-align:center;'> {0} </th> <th style='border:1px solid black; text-align:center;'> {1} </th> <th style='border:1px solid black; text-align:center;'> {2} </th> <th style='border:1px solid black; text-align:center;'> {3} </th> <th style='border:1px solid black; text-align:center;'> {4} </th> </tr>").format(["No", "Tanggal", "Keterangan", "Pemasukan", "Pengeluaran"]));
+				 
+				//// tambah row
+				// Saldo Awal
+                $(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format([1, 
+                                                '',
+                                                'Saldo Per-3 Februari 2018',
+                                                convertToRupiah(2233600), 
+                                                '']));
+												
+				// Pemasukan Bulan <param bulan>
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format([2, 
+                                                '',
+                                                'Pemasukan bulan Februari 2018 (dari 14 donatur)',
+                                                convertToRupiah(2050000), 
+                                                '']));
+				
+				// Pengeluaran
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format([3, 
+                                                '03-03-2018',
+                                                'Pemberian santunan kepada 16 orang yatim @Rp.100.000',
+                                                '', 
+                                                convertToRupiah(1600000)]));
+												
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format([4, 
+                                                '03-03-2018',
+                                                'Pemberian santunan kepada 4 orang dhuafa @Rp.50.000',
+                                                '', 
+                                                convertToRupiah(200000)]));
+				
+				$(tbl).find('tbody').append(("<tr> <td style='border-left:1px solid black; border-right:1px solid black'> {0} </td> " +
+                                                "<td style='border-right:1px solid black; text-align:center;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black;'> {2} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border-right:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format([5, 
+                                                '18-03-2018',
+                                                'Pemberian santunan kepada 3 orang dhuafa @Rp.50.000',
+                                                '', 
+                                                convertToRupiah(150000)]));
+												
+				//// Insert Foot
+				$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-top:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                                                "<td style='border-top:1px solid black; border-bottom:1px solid black;'> {1} </td>" +
+                                                "<td style='border-top:1px solid black; border-right:1px solid black; border-bottom:1px solid black; text-align:right; padding-right:10px;'> {2} </td>" +
+                                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format(['', 
+                                                '',
+                                                'JUMLAH',
+                                                convertToRupiah(4283600), 
+                                                convertToRupiah(1950000)]));
+												
+				$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                                                "<td style='border-bottom:1px solid black;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black; border-bottom:1px solid black; text-align:right; padding-right:10px;'> {2} </td>" +
+                                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format(['', 
+                                                '',
+                                                'SALDO',
+                                                '', 
+                                                convertToRupiah(2330600)]));
+												
+				$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                                                "<td style='border-bottom:1px solid black;'> {1} </td>" +
+                                                "<td style='border-right:1px solid black; border-bottom:1px solid black; text-align:right; padding-right:10px;'> {2} </td>" +
+                                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                                                "</tr>" +
+                                                "").format(['', 
+                                                '',
+                                                'JUMLAH',
+                                                convertToRupiah(4283600), 
+                                                convertToRupiah(1950000)]));
+			}
+			
+			function printPreview(){
+				
+				var laporanSelectedIndex = document.getElementById("ddlLaporan").selectedIndex;
+				var laporanSelectedText = $('#ddlLaporan').find("option:selected").text();
+				var laporanSelectedValue = $('#ddlLaporan').val();
+			
+				if(laporanSelectedIndex == 0) {
+					alert('Mohon pilih laporan terlebih dahulu');
+				} else {
+					// Simulate Target _blank in Javascript - 11:39 PM 4/13/2018 - https://stackoverflow.com/questions/1574008/how-to-simulate-target-blank-in-javascript
+					window.open("print.html?title=April 2018", "_blank");
+				}
+				
+                // if(laporanSelectedValue == "PemasukanPengeluaran"){
+				// 	window.open("print.html?title=Laporan Pemasukan Pengeluaran April 2018", "_blank");
+				// } else if(laporanSelectedValue == "StatusPembayaranDonatur"){
+				// 	window.open("print.html?title=Status Pembayaran Donatur April 2018", "_blank");
+				// } else {
+				// 	alert('Mohon pilih laporan terlebih dahulu');
+				// }
+			}
+        </script>
+    </head>
+    <body>
+        <ul class="nav nav-tabs" id="ulTabList" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tab-penerima" data-toggle="tab" href="#penerima" role="tab" aria-controls="penerima" aria-selected="true">Penerima</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab-donatur" data-toggle="tab" href="#donatur" role="tab" aria-controls="donatur" aria-selected="false">Donatur</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="tab-pemasukan" data-toggle="tab" href="#pemasukan" role="tab" aria-controls="pemasukan" aria-selected="false">Pemasukan</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" id="tab-pengeluaran" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" id="tab-event" data-toggle="tab" href="#event" role="tab" aria-controls="event" aria-selected="false">Event</a>
+            </li>
+			<li class="nav-item">
+                <a class="nav-link" id="tab-laporan" data-toggle="tab" href="#laporan" role="tab" aria-controls="laporan" aria-selected="false">Laporan</a>
+            </li>
+        </ul>
+        <div id="divTabList">
+            <div class="tab-content">
+                <div class="tab-pane active" id="penerima" role="tabpanel" aria-labelledby="tab-penerima">
+                    <div class="container-fluid">
+                        <!-- <div class="alert alert-success alert-dismissible fade show">
+                            Success !!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            Warning !!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            Danger !!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div> -->
+                        <button id="btnTambahPenerima" class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="divDetailPenerima" onclick="btnExpand(this, 'Tambah Penerima', 'Tutup')">
+                            Tambah Penerima
+                        </button>
+                        <div id="divDetailPenerima" class="row collapse form-control" style="position:absolute;">
+                            <div>
+								<form id="formPenerima">
+									<div class="col-sm">
+										<h3 id="titlePenerima">Tambah Penerima</h3>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nama</span>
+											</div>
+											<input type="text" id="txtNama" name="nama" class="form-control" placeholder="Masukkan nama" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Jenis Kelamin</span>
+											</div>
+											<!-- <select class="custom-select" id="inputGroupSelect01">
+												<option selected>Pilih jenis kelamin...</option>
+												<option value="LakiLaki">Laki-laki</option>
+												<option value="Perempuan">Perempuan</option>
+											</select> -->
+											<div class="input-group-append form-control">
+												<div class="btn-group btn-group-toggle" data-toggle="buttons">
+													<label class="btn btn-secondary active">
+														<input type="radio" name="jenisKelamin" value="Laki-laki" id="option1" autocomplete="off" checked> Laki-laki
+													</label>
+													<label class="btn btn-secondary">
+														<input type="radio" name="jenisKelamin" value="Perempuan" id="option2" autocomplete="off"> Perempuan
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanTempatTanggalLahir">Tempat dan Tanggal Lahir</span>
+											</div>
+											<input type="text" id="txtTempatLahir" name="tempatLahir" class="form-control" placeholder="Masukkan tempat lahir" aria-label="Tempat dan Tanggal Lahir" aria-describedby="spanTempatTanggalLahir"/>
+											<input type="date" id="txtTanggalLahir" name="tanggalLahir" class="form-control" placeholder="Masukkan tanggal lahir" aria-label="Tempat dan Tanggal Lahir" aria-describedby="spanTempatTanggalLahir"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanAlamat">Alamat</span>
+											</div>
+											<input type="text" id="txtAlamat" name="alamat" class="form-control" placeholder="Masukkan alamat" aria-label="Alamat" aria-describedby="spanAlamat"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Keterangan</span>
+											</div>
+											<!-- <select class="custom-select" id="inputGroupSelect01">
+												<option selected>Pilih keterangan...</option>
+												<option value="Yatim">Yatim</option>
+												<option value="Dhuafa">Dhuafa</option>
+											</select> -->
+											<div class="input-group-append form-control">
+												<div class="btn-group btn-group-toggle" data-toggle="buttons">
+													<label class="btn btn-secondary active">
+														<input type="radio" name="keterangan" value="Yatim" id="option1" autocomplete="off" checked> Yatim
+													</label>
+													<label class="btn btn-secondary">
+														<input type="radio" name="keterangan" value="Dhuafa" id="option2" autocomplete="off"> Dhuafa
+													</label>
+												</div>
+											</div>
+										</div>
+										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahPenerima, 'Tambah Penerima', 'Tutup'); tambahPenerima()" />
+										<button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahPenerima, 'Tambah Penerima', 'Tutup')" >
+											Tutup
+										</button>
+									</div>
+								</form>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <table id="tablePenerima" class="table table-light table-striped table-sm">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>Tempat Lahir</th>
+                                        <th>Tanggal Lahir</th>
+                                        <th>Alamat</th>
+                                        <th>Keterangan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="alert alert-dismissible fade show">
+                                        <td>
+                                            <!-- <input type="button" value="Hapus" class="btn btn-danger" onclick="hapusPenerima(this)"/> -->
+											<!-- <div class="alert alert-dismissible fade show"> -->
+												<!-- Success !! -->
+												<!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+													Hapus
+												</button> -->
+												<input type="button" value="Hapus" data-dismiss="alert" class="btn btn-danger" onclick="hapusPenerima(this)"/>
+											<!-- </div> -->
+                                            <input type="button" value="Lihat Detail" class="btn btn-primary" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahPenerima, 'Tambah Penerima', 'Tutup');  detailPenerima(this)"/>
+                                        </td>
+                                        <td>1</td>
+                                        <td>Alpin Saputra</td>
+                                        <td>Laki-laki</td>
+                                        <td>Jakarta</td>
+                                        <td>2009-03-08</td>
+                                        <td>Jl. Bina Karya, Pondok Kopi</td>
+                                        <td>Yatim</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+
+                    </div>
+                </div>
+                <div class="tab-pane" id="donatur" role="tabpanel" aria-labelledby="tab-donatur">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="spanNamaDonatur">Nama Donatur</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Masukkan nama" aria-label="Nama" aria-describedby="spanNamaDonatur"/>
+                    </div>
+                </div>
+                <div class="tab-pane" id="pemasukan" role="tabpanel" aria-labelledby="tab-pemasukan">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="spanNominal">Nominal Pemasukan</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNominal"/>
+                    </div>
+                </div>
+				<div class="tab-pane" id="pengeluaran" role="tabpanel" aria-labelledby="tab-pengeluaran">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="spanNominal">Nominal Pengeluaran</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNominal"/>
+                    </div>
+                </div>
+				<div class="tab-pane" id="event" role="tabpanel" aria-labelledby="tab-event">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="spanNominal">Nama Event</span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Masukkan nama event" aria-label="Nama" aria-describedby="spanNominal"/>
+                    </div>
+                </div>
+				<div class="tab-pane" id="laporan" role="tabpanel" aria-labelledby="tab-laporan">
+					<div class='form-control'>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="spanNominal">Laporan</span>
+							</div>
+							<select class="custom-select" id="ddlLaporan">
+								<option selected>Pilih laporan...</option>
+								<option value="LaporanKeuangan">Laporan Keuangan</option>
+								<option value="StatusPembayaranDonatur">Status Pembayaran Donatur</option>
+							</select>
+						</div>
+						<input type="button" class="btn btn-primary btn-block" value="Preview" onclick="previewLaporan()"/>
+						<input type="button" class="btn btn-primary" value="Print Preview" onclick="printPreview()"/>
+						
+						<!-- <a href="print.html?title=Laporan Pemasukan Pengeluaran Maret 2018" target="_blank" onclick="printPreview()">Print Preview</a> -->
+					</div>
+					
+					<div class="container-fluid" style="margin-top:20px">
+						<div class="row">
+							<div class="col-sm">
+								<table id="tableLaporan" class="table table-light table-striped table-sm">
+								<!-- <input type="button" value="Print" onclick="test()" /> -->
+									<thead>
+										<!-- Data dari script -->
+									</thead>
+									<tbody>
+										<!-- Data dari script -->
+									</tbody>
+									<tfoot>
+										<!-- Data dari script -->
+									</tfoot>
+								</table>
+								
+						
+							</div>
+						</div>
+					</div>
+					
+					
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
