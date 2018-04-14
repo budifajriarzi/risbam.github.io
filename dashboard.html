@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html>
     <head>
         <meta charset="utf-8">
@@ -27,12 +27,18 @@
                     $(obj).html(txtHide);
                     $(obj).removeClass('btn-primary');
                     $(obj).addClass('btn-secondary');
-					$('#titlePenerima').html('Tambah Penerima');
+					//$('#titlePenerima').html(txtShow);
+					
+					
+					//alert(txtShow);
+					
+					$(obj).parent().find('h3').html(txtShow);
                 } else {
                     $(obj).html(txtShow);
                     $(obj).removeClass('btn-secondary');
                     $(obj).addClass('btn-primary');
                 }
+				
 
                 // $(obj).on('shown.bs.collapse', function () {
                 //     $(obj).html(txtShow);
@@ -52,11 +58,11 @@
 				// $.post('tambahPenerima', function(){ 
 					// do things here...
 				//});
+				//alert(f);
 				
-				
-				// untuk kirim ke client
+				////untuk kirim ke client
 				var nama = $('#txtNama').val();
-				var jenisKelamin = f.split('&')[1].split('=')[1];
+				var jenisKelamin = f.split('&')[1].split('=')[1]; // $('#ddlJenisKelamin').val();
 				var tempatLahir = $('#txtTempatLahir').val();
 				var tanggalLahir = f.split('&')[3].split('=')[1];
 				var alamat = $('#txtAlamat').val();
@@ -84,25 +90,91 @@
                                                 keterangan]));
             }
 			function detailPenerima(obj){
-				var nama = $(obj).parents('tr').find('td').eq(2).html();
-				var tempatLahir = $(obj).parents('tr').find('td').eq(4).html();
-				var alamat = $(obj).parents('tr').find('td').eq(6).html();
+				
+			
+				var nama = $(obj).parents('tr').find('td').eq(2).html().trim();
+				var jenisKelamin = $(obj).parents('tr').find('td').eq(3).html().trim();
+				var tempatLahir = $(obj).parents('tr').find('td').eq(4).html().trim();
+				var tglLahir = $(obj).parents('tr').find('td').eq(5).html().trim();
+				var alamat = $(obj).parents('tr').find('td').eq(6).html().trim();
+				var keterangan = $(obj).parents('tr').find('td').eq(7).html().trim();
 				
 				$('#txtNama').val(nama);
+				$('#ddlJenisKelamin').val(jenisKelamin);
 				$('#txtTempatLahir').val(tempatLahir);
+				$('#txtTanggalLahir').val(tglLahir);
 				$('#txtAlamat').val(alamat);
+				$('#ddlKeterangan').val(keterangan);
 				
 				
 				
-				btnExpand(btnTambahPenerima, "Tambah Penerima", "Tutup");
-				$('#titlePenerima').html('Detail Penerima');
+				btnExpand(btnTambahPenerima, "Detail Penerima", "Tutup");
+				//$('#titlePenerima').html('Detail Penerima');
+				
+				
+			}
+			function tambahDonatur(){
+				// untuk kirim ke server
+				var f = $('#formDonatur').serialize();
+				// $.post('tambahPenerima', function(){ 
+					// do things here...
+				//});
+				//alert(f);
+				
+				////untuk kirim ke client
+				var nama = $('#txtNamaDonatur').val();
+				var alias = $('#txtAliasDonatur').val();
+				var jenisKelamin = f.split('&')[2].split('=')[1]; // $('#ddlJenisKelamin').val();
+				var noHP = $('#txtNoHPDonatur').val();
+				var alamat = $('#txtAlamatDonatur').val();
+				
+                var tbl = $('#tableDonatur');
+                 
+				 //// tambah penerima
+                $(tbl).find('tbody').append(("<tr class='alert alert-dismissible fade show'> <td> {0} </td> " +
+                                                "<td> {1} </td>" +
+                                                "<td> {2} </td>" +
+                                                "<td> {3} </td>" +
+                                                "<td> {4} </td>" +
+                                                "<td> {5} </td>" +
+                                                "<td> {6} </td>" +
+                                                "</tr>" +
+                                                "").format(['<input type="button" value="Hapus" data-dismiss="alert" class="btn btn-danger" onclick="hapusDonatur(this)"/>' + ' ' + '<input type="button" value="Lihat Detail" class="btn btn-primary" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="collapseExample" onclick="detailDonatur(this)"/>',
+                                                1, 
+                                                nama,
+                                                alias,
+                                                jenisKelamin,
+                                                noHP, 
+                                                alamat]));
+            }
+			function detailDonatur(obj){
+				
+			
+				var nama = $(obj).parents('tr').find('td').eq(2).html().trim();
+				var alias = $(obj).parents('tr').find('td').eq(3).html().trim();
+				var jenisKelamin = $(obj).parents('tr').find('td').eq(4).html().trim();
+				var noHP = $(obj).parents('tr').find('td').eq(5).html().trim();
+				var alamat = $(obj).parents('tr').find('td').eq(6).html().trim();
+				
+				
+				$('#txtNamaDonatur').val(nama);
+				$('#txtAliasDonatur').val(alias);
+				$('#ddlJenisKelaminDonatur').val(jenisKelamin);
+				$('#txtNoHPDonatur').val(noHP);
+				$('#txtAlamatDonatur').val(alamat);
+				
+				
+				
+				
+				btnExpand(btnTambahDonatur, "Detail Donatur", "Tutup");
+				//$('#titleDonatur').html('Detail Donatur');
 				
 				
 			}
             function hapusPenerima(obj){
                 //var trs = $(obj).parents('tr').eq(0);
                 //trs.remove();
-				alert('deleted on server');
+				//alert('deleted on server');
             };
 			
 			function previewLaporan(){
@@ -538,12 +610,11 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text">Jenis Kelamin</span>
 											</div>
-											<!-- <select class="custom-select" id="inputGroupSelect01">
-												<option selected>Pilih jenis kelamin...</option>
-												<option value="LakiLaki">Laki-laki</option>
-												<option value="Perempuan">Perempuan</option>
-											</select> -->
-											<div class="input-group-append form-control">
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">Laki-Laki</option>
+												<option value="Perempuan" style="background-color:pink">Perempuan</option>
+											</select>
+											<!-- <div class="input-group-append form-control">
 												<div class="btn-group btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-secondary active">
 														<input type="radio" name="jenisKelamin" value="Laki-laki" id="option1" autocomplete="off" checked> Laki-laki
@@ -552,14 +623,14 @@
 														<input type="radio" name="jenisKelamin" value="Perempuan" id="option2" autocomplete="off"> Perempuan
 													</label>
 												</div>
-											</div>
+											</div> -->
 										</div>
 										<div class="input-group mb-3">
 											<div class="input-group-prepend">
-												<span class="input-group-text" id="spanTempatTanggalLahir">Tempat dan Tanggal Lahir</span>
+												<span class="input-group-text" id="spanTTL">TTL</span>
 											</div>
-											<input type="text" id="txtTempatLahir" name="tempatLahir" class="form-control" placeholder="Masukkan tempat lahir" aria-label="Tempat dan Tanggal Lahir" aria-describedby="spanTempatTanggalLahir"/>
-											<input type="date" id="txtTanggalLahir" name="tanggalLahir" class="form-control" placeholder="Masukkan tanggal lahir" aria-label="Tempat dan Tanggal Lahir" aria-describedby="spanTempatTanggalLahir"/>
+											<input type="text" id="txtTempatLahir" name="tempatLahir" class="form-control" placeholder="Masukkan tempat lahir" aria-label="Tempat dan Tanggal Lahir" aria-describedby="spanTTL"/>
+											<input type="date" id="txtTanggalLahir" name="tanggalLahir" class="form-control" placeholder="Masukkan tanggal lahir" aria-label="Tempat dan Tanggal Lahir" aria-describedby="spanTTL"/>
 										</div>
 										<div class="input-group mb-3">
 											<div class="input-group-prepend">
@@ -571,12 +642,11 @@
 											<div class="input-group-prepend">
 												<span class="input-group-text">Keterangan</span>
 											</div>
-											<!-- <select class="custom-select" id="inputGroupSelect01">
-												<option selected>Pilih keterangan...</option>
+											<select class="custom-select" name="keterangan" id="ddlKeterangan">
 												<option value="Yatim">Yatim</option>
 												<option value="Dhuafa">Dhuafa</option>
-											</select> -->
-											<div class="input-group-append form-control">
+											</select>
+											<!-- <div class="input-group-append form-control">
 												<div class="btn-group btn-group-toggle" data-toggle="buttons">
 													<label class="btn btn-secondary active">
 														<input type="radio" name="keterangan" value="Yatim" id="option1" autocomplete="off" checked> Yatim
@@ -585,7 +655,7 @@
 														<input type="radio" name="keterangan" value="Dhuafa" id="option2" autocomplete="off"> Dhuafa
 													</label>
 												</div>
-											</div>
+											</div> -->
 										</div>
 										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahPenerima, 'Tambah Penerima', 'Tutup'); tambahPenerima()" />
 										<button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#divDetailPenerima" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahPenerima, 'Tambah Penerima', 'Tutup')" >
@@ -625,7 +695,7 @@
                                         </td>
                                         <td>1</td>
                                         <td>Alpin Saputra</td>
-                                        <td>Laki-laki</td>
+                                        <td>Laki-Laki</td>
                                         <td>Jakarta</td>
                                         <td>2009-03-08</td>
                                         <td>Jl. Bina Karya, Pondok Kopi</td>
@@ -639,11 +709,123 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="donatur" role="tabpanel" aria-labelledby="tab-donatur">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="spanNamaDonatur">Nama Donatur</span>
+                    <div class="container-fluid">
+                        <!-- <div class="alert alert-success alert-dismissible fade show">
+                            Success !!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <input type="text" class="form-control" placeholder="Masukkan nama" aria-label="Nama" aria-describedby="spanNamaDonatur"/>
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            Warning !!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            Danger !!
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div> -->
+                        <button id="btnTambahDonatur" class="btn btn-primary btn-block" type="button" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="divDetailDonatur" onclick="btnExpand(this, 'Tambah Donatur', 'Tutup')">
+                            Tambah Donatur
+                        </button>
+                        <div id="divDetailDonatur" class="row collapse form-control" style="position:absolute;">
+                            <div>
+								<form id="formDonatur">
+									<div class="col-sm">
+										<h3 id="titleDonatur">Tambah Donatur</h3>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nama</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nama" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Alias</span>
+											</div>
+											<input type="text" id="txtAliasDonatur" name="nama" class="form-control" placeholder="Masukkan alias" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Jenis Kelamin</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelaminDonatur">
+												<option value="Laki-Laki">Laki-Laki</option>
+												<option value="Perempuan" style="background-color:pink">Perempuan</option>
+											</select>
+											<!-- <div class="input-group-append form-control">
+												<div class="btn-group btn-group-toggle" data-toggle="buttons">
+													<label class="btn btn-secondary active">
+														<input type="radio" name="jenisKelamin" value="Laki-laki" id="option1" autocomplete="off" checked> Laki-laki
+													</label>
+													<label class="btn btn-secondary">
+														<input type="radio" name="jenisKelamin" value="Perempuan" id="option2" autocomplete="off"> Perempuan
+													</label>
+												</div>
+											</div> -->
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanAlamat">No. HP</span>
+											</div>
+											<input type="text" id="txtNoHPDonatur" name="alamat" class="form-control" placeholder="Masukkan no. hp" aria-label="Alamat" aria-describedby="spanAlamat"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanAlamat">Alamat</span>
+											</div>
+											<input type="text" id="txtAlamatDonatur" name="alamat" class="form-control" placeholder="Masukkan alamat" aria-label="Alamat" aria-describedby="spanAlamat"/>
+										</div>
+										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahDonatur, 'Tambah Donatur', 'Tutup'); tambahDonatur()" />
+										<button class="btn btn-secondary btn-block" type="button" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahDonatur, 'Tambah Donatur', 'Tutup')" >
+											Tutup
+										</button>
+									</div>
+								</form>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <table id="tableDonatur" class="table table-light table-striped table-sm">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Nama</th>
+										<th>Alias</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>No. HP</th>
+                                        <th>Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="alert alert-dismissible fade show">
+                                        <td>
+                                            <!-- <input type="button" value="Hapus" class="btn btn-danger" onclick="hapusPenerima(this)"/> -->
+											<!-- <div class="alert alert-dismissible fade show"> -->
+												<!-- Success !! -->
+												<!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+													Hapus
+												</button> -->
+												<input type="button" value="Hapus" data-dismiss="alert" class="btn btn-danger" onclick="hapusDonatur(this)"/>
+											<!-- </div> -->
+                                            <input type="button" value="Lihat Detail" class="btn btn-primary" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahDonatur, 'Detail Donatur', 'Tutup');  detailDonatur(this)"/>
+                                        </td>
+                                        <td>1</td>
+                                        <td>Harry Poli Riyanto</td>
+										<td>Harry Poli Riyanto</td>
+                                        <td>Laki-Laki</td>
+                                        <td>085777257437</td>
+                                        <td>KAV PTB DKI Blok J4/No.1, RT 09 RW 009</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+
                     </div>
                 </div>
                 <div class="tab-pane" id="pemasukan" role="tabpanel" aria-labelledby="tab-pemasukan">
@@ -683,7 +865,7 @@
 							</select>
 						</div>
 						<input type="button" class="btn btn-primary btn-block" value="Preview" onclick="previewLaporan()"/>
-						<input type="button" class="btn btn-primary" value="Print Preview" onclick="printPreview()"/>
+						<input type="button" class="btn btn-primary btn-block" value="Print Preview" onclick="printPreview()"/>
 						
 						<!-- <a href="print.html?title=Laporan Pemasukan Pengeluaran Maret 2018" target="_blank" onclick="printPreview()">Print Preview</a> -->
 					</div>
