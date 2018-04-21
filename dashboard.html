@@ -9,7 +9,8 @@
         </title>
 
         <script type="text/javascript" src="jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="jquery-slim.min.js"></script>
+        <!-- <script type="text/javascript" src="jquery-slim.min.js"></script> -->
+		<!-- <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script> -->
         <script type="text/javascript" src="popper.min.js"></script>
         <script type="text/javascript" src="bootstrap.min.js"></script>
     
@@ -20,6 +21,8 @@
         <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="commons.css">
         <script>
+			var urlBase = 'http://localhost:17035/api/';
+		
             function btnExpand(obj, txtShow, txtHide){
                 // // alert($(obj).html().trim());
                 var expanded = $(obj).attr('aria-expanded');
@@ -52,6 +55,13 @@
                 //     $(obj).addClass('btn-primary');
                 // })
             };
+			function getPenerimaList(){
+				$.get(urlBase + 'penerima', function(data){
+					
+						alert(data);
+					
+				});
+			}
             function tambahPenerima(){
 				// untuk kirim ke server
 				var f = $('#formPenerima').serialize();
@@ -704,7 +714,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+                        <input type="button" value="Load Penerima" class="btn btn-primary btn-block" onclick="getPenerimaList()" />
+											
 
                     </div>
                 </div>
@@ -829,20 +840,236 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="pemasukan" role="tabpanel" aria-labelledby="tab-pemasukan">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="spanNominal">Nominal Pemasukan</span>
+                    <div class="container-fluid">
+						<div id="divDetailDonatur" class="row form-control" style="position:absolute;">
+                            <div>
+								<form id="formPemasukan">
+									<div class="col-sm">
+										<h3 id="titleDonatur">Tambah Pemasukan</h3>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Tanggal Terima</span>
+											</div>
+											<input type="date" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nama" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Dari Donatur</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">Pilih Donatur..</option>
+												<option value="Perempuan">Tertentu</option>
+												<option value="Perempuan">Andi</option>
+												<option value="Perempuan">Badu</option>
+												<option value="Perempuan">Cacha</option>
+											</select>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Untuk</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">1 Bulan</option>
+												<option value="Perempuan">2 Bulan</option>
+												<option value="Perempuan">3 Bulan</option>
+												<option value="Perempuan">4 Bulan</option>
+											</select>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal Bulan 04</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal Bulan 05</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal Bulan 06</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal Bulan 07</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Andi</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">1 Bulan</option>
+												<option value="Perempuan">2 Bulan</option>
+												<option value="Perempuan">3 Bulan</option>
+												<option value="Perempuan">4 Bulan</option>
+											</select>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Badu</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">1 Bulan</option>
+												<option value="Perempuan">2 Bulan</option>
+												<option value="Perempuan">3 Bulan</option>
+												<option value="Perempuan">4 Bulan</option>
+											</select>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Cacha</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">1 Bulan</option>
+												<option value="Perempuan">2 Bulan</option>
+												<option value="Perempuan">3 Bulan</option>
+												<option value="Perempuan">4 Bulan</option>
+											</select>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<table style="border:1px solid black">
+											<tr style="border:1px solid black">
+												<th rowspan="4" style="border:1px solid black">
+													Andi
+												</th>
+												<th rowspan="4" style="border:1px solid black; height:100%;">
+													<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin" style="height:inherit">
+														<option value="Laki-Laki">1 Bulan</option>
+														<option value="Perempuan">2 Bulan</option>
+														<option value="Perempuan">3 Bulan</option>
+														<option value="Perempuan">4 Bulan</option>
+													</select>
+												</th>
+												<td style="border:1px solid black">
+													<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+												</td>
+											</tr>
+											<tr style="border:1px solid black">
+												<td style="border:1px solid black">
+													<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+												</td>
+											</tr>
+											<tr style="border:1px solid black">
+												<td style="border:1px solid black">
+													<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+												</td>
+											</tr>
+											<tr style="border:1px solid black">
+												<td style="border:1px solid black">
+													<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+												</td>
+											</tr>
+										</table>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal Bulan 04</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin" rowspan="4">
+												<option value="Laki-Laki">1 Bulan</option>
+												<option value="Perempuan">2 Bulan</option>
+												<option value="Perempuan">3 Bulan</option>
+												<option value="Perempuan">4 Bulan</option>
+											</select>
+											<div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+											</div>
+										</div>
+										<div>
+										Total Pemasukan Tanggal 15 April 2018 : Rp.50.000
+										<br/>
+										Dari 1 donatur (Andi)
+										<br/>
+										Dari 3 donatur (Andi, Badu, Cacha)
+										<br/>
+										<br/>
+										</div>
+										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahDonatur, 'Tambah Donatur', 'Tutup'); tambahDonatur()" />
+									</div>
+								</form>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNominal"/>
-                    </div>
+					</div>
                 </div>
 				<div class="tab-pane" id="pengeluaran" role="tabpanel" aria-labelledby="tab-pengeluaran">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="spanNominal">Nominal Pengeluaran</span>
+                    <div class="container-fluid">
+						<div id="divDetailDonatur" class="row form-control" style="position:absolute;">
+                            <div>
+								<form id="formPemasukan">
+									<div class="col-sm">
+										<h3 id="titleDonatur">Tambah Pengeluaran</h3>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Tanggal Keluar</span>
+											</div>
+											<input type="date" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nama" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text">Untuk Penerima</span>
+											</div>
+											<select class="custom-select" name="jenisKelamin" id="ddlJenisKelamin">
+												<option value="Laki-Laki">Pilih Penerima..</option>
+												<option value="Perempuan">Tertentu</option>
+												<option value="Perempuan">Pita</option>
+												<option value="Perempuan">Alpin</option>
+												<option value="Perempuan">Dino</option>
+											</select>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Nominal</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Pita</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Alpin</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Dino</span>
+											</div>
+											<input type="text" id="txtNamaDonatur" name="nama" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNama"/>
+										</div>
+										<div>
+										Total Pemasukan Tanggal 15 April 2018 : Rp.50.000
+										<br/>
+										Dari 1 donatur (Andi)
+										<br/>
+										Dari 3 donatur (Andi, Badu, Cacha)
+										<br/>
+										<br/>
+										</div>
+										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailDonatur" aria-expanded="false" aria-controls="collapseExample" onclick="btnExpand(btnTambahDonatur, 'Tambah Donatur', 'Tutup'); tambahDonatur()" />
+									</div>
+								</form>
+                            </div>
                         </div>
-                        <input type="text" class="form-control" placeholder="Masukkan nominal" aria-label="Nama" aria-describedby="spanNominal"/>
-                    </div>
+					</div>
                 </div>
 				<div class="tab-pane" id="event" role="tabpanel" aria-labelledby="tab-event">
                     <div class="input-group mb-3">
