@@ -1,2 +1,2 @@
 // var urlBase = 'http://localhost:17035/api/';
-var urlBase = 'http://remajamekahmadinah.somee.com/';
+var urlBase = 'https://remajamekahmadinah.somee.com/';
