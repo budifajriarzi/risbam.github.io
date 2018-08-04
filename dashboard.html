@@ -1,7 +1,8 @@
 <!-- <!DOCTYPE html> -->
 <html>
     <head>
-        <meta charset="utf-8">
+		<meta charset="utf-8">
+		<meta lang="id-ID">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
 		<!-- https://stackoverflow.com/questions/33507566/mixed-content-blocked-when-running-an-http-ajax-operation-in-an-https-page -->
@@ -31,6 +32,29 @@
         <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="commons.css">
         <script>
+			$.get(urlBase + 'pemasukan/' + 'DonaturBelumBayar?tahun=' + 2018 + '&bulan=' + 1, function(data){
+				for (let i = 0; i < data.length; i++) {
+					// console.log(data);
+					$('#dataListParamDonaturId').append('<option idvalue="' + data[i].Id + '">' + data[i].Nama + '</option>');
+				}
+			});
+
+			function txtParamDonaturId_OnChange(){
+				var val = document.getElementById("txtParamDonaturId").value;
+				var opts = document.getElementById('dataListParamDonaturId').childNodes;
+				for (var i = 0; i < opts.length; i++) {
+				if (opts[i].value === val) {
+					// An item was selected from the list!
+					// yourCallbackHere()
+
+					var id = opts[i].getAttribute('idvalue');
+					$('#txtParamDonaturId').attr('idvalue', id);
+					break;
+				}
+				}
+
+			}
+
             function btnExpand(obj, txtShow, txtHide){
                 // // alert($(obj).html().trim());
                 var expanded = $(obj).attr('aria-expanded');
@@ -303,13 +327,20 @@
 			
 				if(laporanSelectedIndex == 0) {
 					alert('Mohon pilih laporan terlebih dahulu');
-				} else {
+				} else if(laporanSelectedIndex == 1) {
 					var tahunbulan = $('#txtLaporanBulan').val();
 					var tahun = tahunbulan.split('-')[0];
 					var bulan = tahunbulan.split('-')[1];
 
 					// Simulate Target _blank in Javascript - 11:39 PM 4/13/2018 - https://stackoverflow.com/questions/1574008/how-to-simulate-target-blank-in-javascript
-					window.open("print.html?tahun="+ tahun + '&bulan' + bulan, "_blank");
+					window.open("print.html?tahun="+ tahun + '&bulan=' + bulan, "_blank");
+				} else if(laporanSelectedIndex == 2) {
+					var donaturId = $('#txtParamDonaturId').attr('idvalue');
+					
+					var tahun = $('#txtParamTahun').val();
+
+					// Simulate Target _blank in Javascript - 11:39 PM 4/13/2018 - https://stackoverflow.com/questions/1574008/how-to-simulate-target-blank-in-javascript
+					window.open("kartukuning.html?donaturId="+ donaturId + '&tahun=' + tahun, "_blank");
 				}
 				
                 // if(laporanSelectedValue == "PemasukanPengeluaran"){
@@ -319,6 +350,29 @@
 				// } else {
 				// 	alert('Mohon pilih laporan terlebih dahulu');
 				// }
+			}
+
+			function ddlLaporan_OnChange(val){
+				if(val == "LaporanKeuangan"){
+					$('#divParamBulan').removeClass('d-none');
+					$('#divParamTahun').addClass('d-none');
+					$('#divParamDonatur').addClass('d-none');
+					$('#btnPreview').removeClass('d-none');
+					$('#btnPrintPreview').removeClass('d-none');
+				} else if(val == "KartuKuning"){
+					$('#divParamBulan').addClass('d-none');
+					$('#divParamTahun').removeClass('d-none');
+					$('#divParamDonatur').removeClass('d-none');
+					$('#btnPreview').addClass('d-none');
+					$('#btnPrintPreview').removeClass('d-none');
+				} else {
+					$('#divParamBulan').addClass('d-none');
+					$('#divParamTahun').addClass('d-none');
+					$('#divParamDonatur').addClass('d-none');
+					$('#btnPreview').addClass('d-none');
+					$('#btnPrintPreview').addClass('d-none');
+				}
+
 			}
         </script>
     </head>
@@ -736,16 +790,18 @@
 											</tbody>
 										</table>
 									</form>
-										<div>
-										Total Pemasukan Tanggal 15 April 2018 : Rp.50.000
-										<br/>
-										Dari 1 donatur (Andi)
-										<br/>
-										Dari 3 donatur (Andi, Badu, Cacha)
-										<br/>
-										<br/>
+										<!-- <div>
+											Total Pemasukan Tanggal 15 April 2018 : Rp.50.000
+											<br/>
+											Dari 1 donatur (Andi)
+											<br/>
+											Dari 3 donatur (Andi, Badu, Cacha)
+											<br/>
+											<br/>
+										</div> -->
+										<div style="margin-bottom:100px">
+											<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailPemasukan" aria-expanded="false" aria-controls="collapseExample" onclick="tambahPemasukan()" />
 										</div>
-										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailPemasukan" aria-expanded="false" aria-controls="collapseExample" onclick="tambahPemasukan()" />
 									</div>
                             </div>
                         </div>
@@ -760,23 +816,24 @@
 										<h3 id="titleDonatur">Tambah Pengeluaran</h3>
 										<div class="input-group mb-3">
 											<div class="input-group-prepend">
+												<span class="input-group-text" id="spanNama">Tujuan Pengeluaran</span>
+											</div>
+											<select class="custom-select" id="ddlTujuanPengeluaran" name="TujuanPengeluaran" onchange="ddlTujuanPengeluaran_OnChange(this.value)">
+												<option value="Pemberian Santunan">Pemberian Santunan</option> 
+												<option value="Lain-Lain">Lain-Lain</option>
+											</select>
+										</div>
+										<div class="input-group mb-3">
+											<div class="input-group-prepend">
 												<span class="input-group-text" id="spanNama">Tanggal Keluar</span>
 											</div>
 											<input type="date" id="txtTanggalKeluar" name="TanggalKeluar" oninput="txtTanggalKeluar_OnInput(this.value)" class="form-control" placeholder="Masukkan tanggal keluar" aria-label="Nama" aria-describedby="spanNama"/>
 										</div>
 										<div class="input-group mb-3">
 											<div class="input-group-prepend">
-												<span class="input-group-text" id="spanNama">Tujuan Pengeluaran</span>
-											</div>
-											<select class="custom-select" name="TujuanPengeluaran">
-												<option value="Pemberian Santunan">Pemberian Santunan</option>
-											</select>
-										</div>
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
 												<span class="input-group-text" id="spanNama">Keterangan</span>
 											</div>
-											<input type="text" name="Keterangan" class="form-control" placeholder="Masukkan keterangan" aria-label="Nama" aria-describedby="spanNama"/>
+											<input type="text" id="txtKeteranganPengeluaran" name="Keterangan" class="form-control" placeholder="Masukkan keterangan" aria-label="Nama" aria-describedby="spanNama"/>
 										</div>
 									</form>
 										<div class="input-group mb-3">
@@ -801,16 +858,18 @@
 												</tbody>
 											</table>
 										</form>
-										<div>
-										Total Pengeluaran Tanggal 15 April 2018 : Rp.50.000
-										<br/>
-										Dari 1 donatur (Andi)
-										<br/>
-										Dari 3 donatur (Andi, Badu, Cacha)
-										<br/>
-										<br/>
+										<!-- <div>
+											Total Pengeluaran Tanggal 15 April 2018 : Rp.50.000
+											<br/>
+											Dari 1 donatur (Andi)
+											<br/>
+											Dari 3 donatur (Andi, Badu, Cacha)
+											<br/>
+											<br/>
+										</div> -->
+										<div style="margin-bottom:100px">
+											<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailDonatu" aria-expanded="false" aria-controls="collapseExample" onclick="tambahPengeluaran()" />
 										</div>
-										<input type="button" class="btn btn-primary btn-block" value="Tambah" data-toggle="collapse" data-target="#divDetailDonatu" aria-expanded="false" aria-controls="collapseExample" onclick="tambahPengeluaran()" />
 									</div>
                             </div>
                         </div>
@@ -830,20 +889,36 @@
 							<div class="input-group-prepend">
 								<span class="input-group-text">Laporan</span>
 							</div>
-							<select class="custom-select" id="ddlLaporan">
+							<select class="custom-select" id="ddlLaporan" onchange="ddlLaporan_OnChange(this.value)">
 								<option selected>Pilih laporan...</option>
 								<option value="LaporanKeuangan">Laporan Keuangan</option>
-								<option value="StatusPembayaranDonatur">Status Pembayaran Donatur</option>
+								<option value="KartuKuning">Kartu Kuning</option>
 							</select>
 						</div>
-						<div class="input-group mb-3">
+						<div id="divParamBulan" class="input-group mb-3 d-none">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Bulan</span>
 							</div>
 							<input id="txtLaporanBulan" type="month" />
 						</div>
-						<input type="button" class="btn btn-primary btn-block" value="Preview" onclick="previewLaporan()"/>
-						<input type="button" class="btn btn-primary btn-block" value="Print Preview" onclick="printPreview()"/>
+						<div id="divParamTahun" class="input-group mb-3 d-none">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Tahun</span>
+							</div>
+							<input id="txtParamTahun" type="number" value="2018" />
+						</div>
+						<div id="divParamDonatur" class="input-group mb-3 d-none">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Donatur</span>
+							</div>
+							<!-- <input id="txtParamDonaturId" list="dataListParamDonaturId"/> -->
+							<input type="text" id="txtParamDonaturId" list="dataListParamDonaturId" placeholder="Nama Donatur" onchange="txtParamDonaturId_OnChange()"/>
+							<datalist id="dataListParamDonaturId">
+
+							</datalist>
+						</div>
+						<input id="btnPreview" type="button" class="btn btn-primary btn-block d-none" value="Preview" onclick="previewLaporan()"/>
+						<input id="btnPrintPreview" type="button" class="btn btn-primary btn-block d-none" value="Print Preview" onclick="printPreview()"/>
 						
 						<!-- <a href="print.html?title=Laporan Pemasukan Pengeluaran Maret 2018" target="_blank" onclick="printPreview()">Print Preview</a> -->
 					</div>

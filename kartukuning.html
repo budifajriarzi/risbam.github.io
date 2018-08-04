@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Kartu Kuning MEKAH MADINAH</title>
+		
+		<!-- A4 CSS page template - 10:50 PM 4/13/2018 - https://codepen.io/rafaelcastrocouto/pen/LFAes -->
+		<!-- Word Wrap - 11:12 PM 4/13/2018 - https://www.w3schools.com/cssref/tryit.asp?filename=trycss3_word-wrap -->
+		<!-- Hide element when print - 9:32 AM 6/3/2018 - https://stackoverflow.com/questions/355313/how-do-i-hide-an-element-when-printing-a-web-page -->
+		
+		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="commons.js"></script>
+		<script type="text/javascript" src="global.js"></script>
+		<script type="text/javascript" src="js/kartukuning/kartukuning.js"></script>
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<style>
+			body {
+				background: rgb(204,204,204); 
+				font-family: calibri;
+					
+			}
+			page {
+				background: #ffff5e;
+				display: block;
+				margin: 10px auto;
+				margin-bottom: 0.5cm;
+				box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+				
+			}
+			page .table {
+				background: #ffff5e;
+				
+			}
+			page[size="A4"] {
+				width: 21cm;
+				height: 29.7cm;
+				padding: 0.8cm;
+				word-wrap: break-word; 
+			}
+			
+			#tableKartuKuning thead tr th {
+				font-size:30px;
+			}
+			#tableKartuKuning tbody tr td {
+				font-size:27px;
+			}
+			#tableKartuKuning tfoot tr td {
+				font-size:30px;
+			}
+			
+			#tableHeaderKartuKuning tr td {
+				font-size:30px;
+				
+			}
+			hr{
+				border-style: solid;
+				border-width: 0.4px;
+			}
+			
+			
+		</style>
+		<!-- <style> 
+			body {
+				background: rgb(204,204,204); 
+			}		
+			page {
+				background: white;
+				display: block;
+				margin: 0 auto;
+				margin-bottom: 0.5cm;
+				box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+			}
+			page[size="A4"] {
+				width: 21cm;
+				height: 29.7cm;
+				padding: 1cm;
+				word-wrap: break-word; 
+			}
+			page[size="A4"][layout="landscape"]{
+				width: 29.7cm;
+				height: 21cm;
+				padding: 1cm;
+				word-wrap: break-word; 
+			}	
+			@media print {
+				body, page {
+					margin: 0 auto;
+					box-shadow: 0 0 0 rgba(0,0,0,0);
+					
+					width: 21cm;
+					height: 29.7cm;
+					padding: 1cm;
+					word-wrap: break-word; 
+				}
+			}
+		</style> -->
+				
+		
+					<!-- -webkit-transition: none !important;
+					transition: none !important; -->
+		
+		<script>
+			$(document).ready(function(){
+				var url = document.location.toString();
+				
+				// 11:48 PM 4/13/2018 - encode and decode URI - https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_decodeuri
+				var urlDecoded = decodeURI(url);
+				
+				//alert(url + " " + urlDecoded);
+				var tahunbulan = urlDecoded.split('&');
+				var donaturId = tahunbulan[0].split('donaturId=')[1];
+				var tahun = tahunbulan[1].split('tahun=')[1];
+				
+				PreviewKartuKuning(donaturId, tahun);
+				
+			});
+		</script>
+	</head>
+	<body>
+		<page size="A4">
+
+			<table>
+				<tr>
+					<td rowspan="2"><img src="Content/img/logo.png" style="width:100px; height:100px;"/></td>
+				</tr>
+				<tr>
+					<td>
+						<h1 style="font-size:55px; line-height:3mm;">MEKAH </h1>
+						<br/>
+						<h1 style="font-size:55px; line-height:3mm;">MADINAH </h1>
+					</td>
+					<td style="font-size:21px; line-height:12mm;">
+						(Memberi Sedekah)
+						<br/>
+						(Makmurkan Dhuafa Insya Allah Berkah)
+					</td>
+				</tr>
+			</table>
+			
+			
+			
+			<hr/>
+
+			<table id="tableHeaderKartuKuning" align="center">
+				<tr>
+					<td style="width:150px; font-weight:bold;">
+						Nama
+					</td>
+					<td>
+						:
+					</td>
+					<td>
+						<label id="labelNama"></label>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:150px; font-weight:bold;">
+						Alamat
+					</td>
+					<td>
+						:
+					</td>
+					<td>
+						<label id="labelAlamat"></label>
+					</td>
+				</tr>
+				<tr>
+					<td style="width:150px; font-weight:bold;">
+						Telepon
+					</td>
+					<td>
+						:
+					</td>
+					<td>
+						<label id="labelTelepon"></label>
+					</td>
+				</tr>
+			</table>
+			
+			<hr>
+			<h1 style="text-align:center">
+				Tahun : <label id="labelTahun"></label>
+				<br/>
+				
+			</h1>
+			
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<table id="tableKartuKuning" class="table table-striped table-sm">
+							<thead>
+								<!-- Data dari script -->
+							</thead>
+							<tbody>
+								<!-- Data dari script -->
+							</tbody>
+							<tfoot>
+								<!-- Data dari script -->
+							</tfoot>
+						</table>
+						
+				
+					</div>
+				</div>
+			</div>
+			
+		<page>
+	</body>
+</html>

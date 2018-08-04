@@ -140,15 +140,16 @@ function tambahPenerima(){
 }
 
 function hapusPenerima(id){
-    alert("deleting " + id);
-    $.ajax({
-        url: urlBase + 'penerima/' + id,
-        type: 'DELETE',
-        success: alert(id + " has been deleted"),
-        beforeSend: function (xhr) {
-            
-        },
-        data: {},
-        success: function(){}
-    });
+    if(confirm('Apakah anda yakin ingin menghapus data ini ?')){    
+        $.ajax({
+            url: urlBase + 'penerima/' + id,
+            type: 'DELETE',
+            success: alert(id + " has been deleted"),
+            beforeSend: function (xhr) {
+                
+            },
+            data: {},
+            success: function(){}
+        });
+    }
 };

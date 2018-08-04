@@ -17,6 +17,16 @@ function txtTanggalKeluar_OnInput(tgl){
     $('#tableListPenerima tbody').empty();
 }
 
+function ddlTujuanPengeluaran_OnChange(val){
+    if(val == "Lain-Lain"){
+        GenerateRowPenerima('', val, 0);
+        $('#txtUntukPenerima').attr("disabled", "disabled");
+    } else {
+        $('#tableListPenerima tbody').empty();
+        $('#txtUntukPenerima').removeAttr("disabled");
+    }
+}
+
 function txtUntukPenerima_OnInput(){
     var val = document.getElementById("txtUntukPenerima").value;
     var opts = document.getElementById('upDataList').childNodes;
@@ -41,7 +51,7 @@ function txtUntukPenerima_OnInput(){
 
 function GenerateRowPenerima(id, nama, nominal){
     var rowIdx = $('#tableListPenerima tbody tr').length;
-    $('#tableListPenerima tbody').append('<tr>' + '<td>' + '<input type="button" class="btn btn-danger" value="&times;" />' + '</td>' + 
+    $('#tableListPenerima tbody').append('<tr>' + '<td>' + /*'<input type="button" class="btn btn-danger" value="&times;" />'*/'' + '</td>' + 
                                         '<td class="d-none">' + '<input type="hidden" name="PengeluaranItem[' + rowIdx + '].PenerimaId" value="' + id + '" />' + '</td>' +
                                         '<td>' + nama + '</td>' +
                                         '<td>' + '<input type="text" name="PengeluaranItem[' + rowIdx + '].Nominal" value="' + nominal + '"/>' + '</td>' +
@@ -50,12 +60,21 @@ function GenerateRowPenerima(id, nama, nominal){
 }
 
 function tambahPengeluaran(){
-    // untuk kirim ke server
-    var url = urlBase + 'pengeluaran/';
+    if($('#ddlTujuanPengeluaran').val() == 'Lain-Lain'){
+        if($('#txtKeteranganPengeluaran').val() == ''){
+            alert('Mohon mengisi keterangan');
+            return;
+        }
+    }
 
-    var f = $('#formPengeluaran, #formPengeluaranItem').serialize();
-    // alert(f);
-    $.post(url, f, function(){ 
-        alert('insert pengeluaran success');
-    });
+    if(confirm('Apakah anda yakin ingin menambah pengeluaran?')){   
+        // untuk kirim ke server
+        var url = urlBase + 'pengeluaran/Post';
+
+        var f = $('#formPengeluaran, #formPengeluaranItem').serialize();
+        // alert(f);
+        $.post(url, f, function(){ 
+            alert('insert pengeluaran success');
+        });
+    }
 }

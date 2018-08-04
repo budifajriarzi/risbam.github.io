@@ -2,7 +2,7 @@ function loadDonatur(){
     var tbl = $('#tableDonatur');
     $(tbl).find('tbody').empty();
 
-    $.get(urlBase + 'donatur/', function(data){
+    $.get(urlBase + 'donatur/get', function(data){
         console.log(data);
         for (let i = 0; i < data.length; i++) {
 
@@ -76,7 +76,7 @@ function detailDonatur(obj){
 function tambahDonatur(){
     // untuk kirim ke server
     var f = $('#formDonatur').serialize();
-    $.post(urlBase + 'donatur/', f, function(){ 
+    $.post(urlBase + 'donatur/post', f, function(){ 
         alert('insert donatur success');
     });
 
@@ -108,15 +108,16 @@ function tambahDonatur(){
 }
 
 function hapusDonatur(id){
-    alert("deleting " + id);
-    $.ajax({
-        url: urlBase + 'donatur/' + id,
-        type: 'DELETE',
-        success: alert(id + " has been deleted"),
-        beforeSend: function (xhr) {
-            
-        },
-        data: {},
-        success: function(){}
-    });
+    if(confirm('Apakah anda yakin ingin menghapus data ini ?')){    
+        $.ajax({
+            url: urlBase + 'donatur/delete' + id,
+            type: 'DELETE',
+            success: alert(id + " has been deleted"),
+            beforeSend: function (xhr) {
+                
+            },
+            data: {},
+            success: function(){}
+        });
+    }
 };

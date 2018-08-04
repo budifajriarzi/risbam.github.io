@@ -39,6 +39,21 @@ Number.prototype.format = function (n, x, s, c) {
     return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
 };
 
+// 2018-06-25
+function ConvertToRupiah(nominal) {
+    return 'Rp.' + nominal.format(0, 3, '.', ',');
+}
+function ConvertToNumber(nominal) {
+    return nominal.replace(/[^\d^,-]/g, '').replace(',', '.');
+}
+
+// 2018-06-27
+// https://stackoverflow.com/questions/13459866/javascript-change-date-into-format-of-dd-mm-yyyy/13459946
+function convertDate(inputFormat) {
+    function pad(s) { return (s < 10) ? '0' + s : s; }
+    var d = new Date(inputFormat);
+    return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+  }
 
 // 2018-02-23 string format in javascript : https://www.codeproject.com/Tips/201899/String-Format-in-JavaScript
 
@@ -69,6 +84,36 @@ function TDGenerator(arr){
     }
 
     return str;
+}
+
+// 2018-05-04, Paji.
+function NamaBulan(bln){
+    var b = parseInt(bln);
+    if(b == 1){
+        return 'Januari';
+    } else if(b == 2) {
+        return 'Februari';
+    } else if(b == 3) {
+        return 'Maret';
+    } else if(b == 4) {
+        return 'April';
+    } else if(b == 5) {
+        return 'Mei';
+    } else if(b == 6) {
+        return 'Juni';
+    } else if(b == 7) {
+        return 'Juli';
+    } else if(b == 8) {
+        return 'Agustus';
+    } else if(b == 9) {
+        return 'September';
+    } else if(b == 10) {
+        return 'Oktober';
+    } else if(b == 11) {
+        return 'November';
+    } else if(b == 12) {
+        return 'Desember';
+    }
 }
 
 

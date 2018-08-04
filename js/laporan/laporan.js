@@ -48,7 +48,7 @@ function PreviewLaporan_PemasukanPengeluaran(tahun, bulan){
             console.log(data);
             for (var i = 0; i < data.length; i++) {
                 $(tbl).find('tbody').append("<tr> <td style='border-left:1px solid black; border-right:1px solid black'>" + (i+1) + "</td> " +
-                                        "<td style='border-right:1px solid black; text-align:center;'>" + (data[i].m_Item1 != null ? (new Date(data[i].m_Item1).getDate() + '-' + new Date(data[i].m_Item1).getMonth() + '-' + new Date(data[i].m_Item1).getFullYear()) : '') + "</td>" +
+                                        "<td style='border-right:1px solid black; text-align:center;'>" + (data[i].m_Item1 != null ? (new Date(data[i].m_Item1).getDate() + '-' + (new Date(data[i].m_Item1).getMonth()+1) + '-' + new Date(data[i].m_Item1).getFullYear()) : '') + "</td>" +
                                         "<td style='border-right:1px solid black;'>" + data[i].m_Item2 + "</td>" +
                                         "<td style='border-right:1px solid black; text-align:right;'>" + (data[i].m_Item3 != '' ? "Rp." + parseInt(data[i].m_Item3).format(0, 3, '.', ',') : '') + "</td>" +
                                         "<td style='border-right:1px solid black; text-align:right;'>" + (data[i].m_Item4 != '' ? "Rp." + parseInt(data[i].m_Item4).format(0, 3, '.', ',') : '') + "</td>" +
@@ -136,17 +136,17 @@ function PreviewLaporan_PemasukanPengeluaran(tahun, bulan){
                                                 '', 
                                                 "Rp." + (totalPemasukan - totalPengeluaran).format(0, 3, '.', ',')]));
                                                 
-                $(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
-                                                "<td style='border-bottom:1px solid black;'> {1} </td>" +
-                                                "<td style='border-right:1px solid black; border-bottom:1px solid black; text-align:right; padding-right:10px;'> {2} </td>" +
-                                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
-                                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
-                                                "</tr>" +
-                                                "").format(['', 
-                                                '',
-                                                'JUMLAH',
-                                                "Rp." + totalPemasukan.format(0, 3, '.', ','), 
-                                                "Rp." + totalPengeluaran.format(0, 3, '.', ',')]));
+                //$(tbl).find('tfoot').append(("<tr style='font-weight:bold'> <td style='border-left:1px solid black; border-bottom:1px solid black;'> {0} </td> " +
+                //                                "<td style='border-bottom:1px solid black;'> {1} </td>" +
+                //                                "<td style='border-right:1px solid black; border-bottom:1px solid black; text-align:right; padding-right:10px;'> {2} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {3} </td>" +
+                //                                "<td style='border:1px solid black; text-align:right;'> {4} </td>" +
+                //                                "</tr>" +
+                //                                "").format(['', 
+                //                                '',
+                //                                'JUMLAH',
+                //                                "Rp." + totalPemasukan.format(0, 3, '.', ','), 
+                //                                "Rp." + totalPengeluaran.format(0, 3, '.', ',')]));
 
             }
         });
